@@ -1,0 +1,128 @@
+﻿@model IEnumerable<CRUD_IN_CORE.Models.Car>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+ 
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+     Create New 
+    </button>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Model)</th>
+            <th>@Html.DisplayNameFor(model => model.Color)</th>
+            <th>@Html.DisplayNameFor(model => model.Year)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Model)</td>
+                <td>@Html.DisplayFor(modelItem => item.Color)</td>
+                <td>@Html.DisplayFor(modelItem => item.Year)</td>
+                <td>
+                    <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#editModal-@item.Id">Edit</button> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" type="number" name="Id" class="form-control" value="@item.Id" />
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
+ 
+                </td>
+            </tr>
+
+            <!-- Modal -->
+            <div class="modal fade" id="editModal-@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Car</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form asp-action="Edit">
+                                <input type="hidden" type="number" name="Id" class="form-control" value="@item.Id" />
+                                <div class="form-group">
+                                    <label asp-for="@item.Name" class="control-label"></label>
+                                    <input name="Name" class="form-control" value="@item.Name" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@item.Model" class="control-label"></label>
+                                    <input name="Model" class="form-control" value="@item.Model" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@item.Color" class="control-label"></label>
+                                    <input  name="Color" class="form-control" value="@item.Color" />
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="@item.Year" class="control-label"></label>
+                                    <input type="number"  name="Year" class="form-control" value="@item.Year" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </tbody>
+</table>
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create">
+                    <div class="form-group">
+                        <input name="Name" class="form-control" value="" placeholder="Name" />
+                    </div>
+                    <div class="form-group">
+
+                        <input name="Model" class="form-control" value=""  placeholder="Model" />
+                    </div>
+                    <div class="form-group">
+
+                        <input name="Color" class="form-control" value="" placeholder="Color" />
+                    </div>
+                    <div class="form-group">
+
+                        <input type="number" name="Year" class="form-control" value=""  placeholder="number"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+             </form>
+            </div>
+             
+        </div>
+    </div>
+</div>
